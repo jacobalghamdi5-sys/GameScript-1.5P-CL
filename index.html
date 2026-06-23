@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameScript v1.5 Pro Dashboard</title>
+    
+    <style>
+        :root {
+            --bg-darker: #030712;
+            --bg-space: #0b0f19;
+            --bg-grid: rgba(99, 102, 241, 0.15);
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --border-glow: rgba(99, 102, 241, 0.3);
+            --astro-purple: #ae4ef2;
+            --astro-blue: #6366f1;
+            --pro-gold: #f59e0b;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --font-stack: system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-darker);
+            background-image: 
+                linear-gradient(to right, var(--bg-grid) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--bg-grid) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        header {
+            width: 100%;
+            padding: 1.25rem 2rem;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-badge {
+            background: linear-gradient(135deg, var(--pro-gold), var(--astro-purple));
+            color: #030712;
+            font-weight: 800;
+            font-size: 0.85rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            flex-grow: 1;
+        }
+
+        .welcome-banner h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #ffffff, var(--astro-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-banner p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .metric-card .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .metric-card .value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0.5rem 0;
+        }
+
+        .metric-card .status {
+            font-size: 0.85rem;
+            color: var(--pro-gold);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .workspace-split {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .workspace-split { grid-template-columns: 1.6fr 0.4fr; }
+        }
+
+        .panel-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .terminal-container {
+            background: #010409;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .terminal-header {
+            background: #0d1117;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .dots { display: flex; gap: 0.4rem; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: #30363d; }
+        .dot.gold { background: var(--pro-gold); }
+
+        .code-display {
+            padding: 1.25rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #e6edf3;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .sidebar-list { display: flex; flex-direction: column; gap: 1rem; }
+        .sidebar-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 2.5rem 2rem;
+            background: #010409;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        footer a { color: var(--astro-blue); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-group">
+            <div class="logo-badge">PRO v1.5</div>
+            <div class="logo-text">GameScript Pro Studio</div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <div class="welcome-banner">
+            <h1>GameScript v1.5 Pro Engine</h1>
+            <p>Advanced IDE compiler dashboard running extended expression trees and state handlers.</p>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="label">Engine State</div>
+                <div class="value">v1.5 Pro</div>
+                <div class="status">● Extended Core Active</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">Execution Mode</div>
+                <div class="value">Asynchronous</div>
+                <div class="status" style="color: #10b981;">⚙️ Optimized Multi-Threading</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">System Pipeline</div>
+                <div class="value">GS-1.1P</div>
+                <div class="status" style="color: var(--astro-purple);">★ Premium Tier Initialized</div>
+            </div>
+        </div>
+
+        <div class="workspace-split">
+            <div class="panel-card">
+                <h3 style="margin-bottom: 1rem;">Pro Initialization Template</h3>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <div class="dots">
+                            <div class="dot gold"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                        <span style="font-size: 0.8rem; color: var(--text-muted); font-family: monospace;">main_v15.gs</span>
+                    </div>
+                    <div class="code-display">// GS Mode Running:::
+// GameScript v1.5 Pro Engine Extended Execution
+Game Pro Function;
+# Config [Thread: Async; Mode: Production]
+___
+Initialize::Canvas(Resolution: "1080p"; Scaling: Native)
+Inject::DynamicDataStream(Limit: 1-100)
+___
+View.RenderSubtitle:{Initializing professional runtime structures...}
+___
+&lt;if&gt; Engine.Status == Flag.Success:
+    Compile::TargetModule("Renderer/Core").Execute();
+&lt;if&gt; Engine.Status == Flag.Exception:
+    Invoke::SystemFallbackRoutine();
+___
+## Global Styles
+Theme: "DeepCosmic"
+AccentGlow: "#6366f1"
+___</div>
+                </div>
+            </div>
+
+            <div class="sidebar-group">
+                <div class="panel-card" style="height: 100%;">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Pro Key Matrix</h3>
+                    <div class="sidebar-list">
+                        <div class="sidebar-item">
+                            <div>Compilation Barrier</div>
+                            <div style="font-family: monospace; color: var(--astro-blue);">___</div>
+                        </div>
+                        <div class="sidebar-item">
+                            <div>Conditional Block</div>
+                            <div style="font-family: monospace; color: var(--astro-blue);">&lt;if&gt;</div>
+                        </div>
+                        <div class="sidebar-item">
+                            <div>Target Stream</div>
+                            <div style="font-family: monospace; color: var(--astro-blue);">Initialize::</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Design inspired by the layout systems engineered by <a href="https://astro.build" target="_blank">Astro.build</a>. Built open-source by Jacob Alghamdi.</p>
+    </footer>
+
+    <script>
+        window.__lc = window.__lc || {};
+        window.__lc.license = 19803765;
+        window.__lc.integration_name = "manual_channels";
+        window.__lc.product_name = "livechat";
+        ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+    </script>
+    <noscript><a href="https://www.livechat.com/chat-with/19803765/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+
+</body>
+</html>
