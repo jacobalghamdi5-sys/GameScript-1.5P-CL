@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameScript v1.5 Pro Dashboard</title>
+    <title>GameScript v1.5 Pro</title>
     
     <style>
         :root {
@@ -179,7 +179,7 @@
 
         .code-display {
             padding: 1.25rem;
-            font-family: monospace;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
             font-size: 0.9rem;
             line-height: 1.6;
             color: #e6edf3;
@@ -245,7 +245,7 @@
 
         <div class="workspace-split">
             <div class="panel-card">
-                <h3 style="margin-bottom: 1rem;">Pro Initialization Template</h3>
+                <h3 style="margin-bottom: 1rem;">Active Project Deployment</h3>
                 <div class="terminal-container">
                     <div class="terminal-header">
                         <div class="dots">
@@ -253,27 +253,36 @@
                             <div class="dot"></div>
                             <div class="dot"></div>
                         </div>
-                        <span style="font-size: 0.8rem; color: var(--text-muted); font-family: monospace;">main_v15.gs</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted); font-family: monospace;">idle-clicker.gs</span>
                     </div>
                     <div class="code-display">// GS Mode Running:::
-// GameScript v1.5 Pro Engine Extended Execution
-Game Pro Function;
-# Config [Thread: Async; Mode: Production]
+// GameScript v1.5 Pro
+&lt;gs-1.5p&gt;
+Game function;
+# Game; Idel Clicker
 ___
-Initialize::Canvas(Resolution: "1080p"; Scaling: Native)
-Inject::DynamicDataStream(Limit: 1-100)
+minisubtitle.print-text{Welcome to the idel clicker game! First click on the button to start clicking, and click on the "AUTO CLICK" button to start auto clicking, and to stop it, click on "STOP" which is in the "AUTO CLICK" button.}
 ___
-View.RenderSubtitle:{Initializing professional runtime structures...}
+&lt;button&gt;Button; Function: Click, repeat[embed:&lt;button-function&gt;&lt;/button-function&gt;, Shape[Circle Modern] &lt;/button&gt;
+ &lt;button-function&gt;embed[&lt;button&gt;&lt;/button&gt;]; Click function:
+Click: do function, change[embed:&lt;button-click&gt;&lt;/button-click&gt;]
+&lt;/button-function&gt;
+  &lt;button-click&gt;Click button: add [embed:&lt;button-changer&gt;&lt;/button-changer&gt;]&lt;/button-click&gt;
+   &lt;button-changer&gt;add function:Button Change, add appear-box[You did one click! Now click on the autoclicking button.]&lt;/button-changer>
 ___
-&lt;if&gt; Engine.Status == Flag.Success:
-    Compile::TargetModule("Renderer/Core").Execute();
-&lt;if&gt; Engine.Status == Flag.Exception:
-    Invoke::SystemFallbackRoutine();
+&lt;autoclick-button&gt;Button, function: autoClick, repeat[embed:&lt;autoclick-button-function&gt;&lt;/autoclick-button-function&gt;], Shape[Circle Modern]&lt;/autoclick-button&gt;
+ &lt;autoclick-button-function&gt;embed[&lt;autoclick-button&gt;&lt;/autoclick-button&gt;]; autoClick function:
+Click: do function, change[embed:&lt;autoclick-button-click&gt;&lt;/autoclick-button-click&gt;]
+&lt;/autoclick-button-function&gt;
+ &lt;autoclick-button-click&gt;autoClick button: add [embed:&lt;autoclick-button-changer&gt;]&lt;/autoclick-button-changer&gt;
+  &lt;autoclick-button-changer&gt;add function:Button Change, add appear-box[You clicked the autoclicking button! Now click stop to stop the autoclicking.]&lt;/autoclick-button-changer&gt;
+_
+&lt;stopautoclick-button&gt;embed[GameScript Reader--Section 2]; Function::: stop function of [embed:GameScript Reader--Section 2].. stop function of(everything) &lt;/stopautoclick-button&gt;
 ___
-## Global Styles
-Theme: "DeepCosmic"
-AccentGlow: "#6366f1"
-___</div>
+# Style
+Wallpaper: Polka Dots, color"Red #FC0303"
+___
+&lt;/gs-1.5p&gt;</div>
                 </div>
             </div>
 
@@ -282,16 +291,16 @@ ___</div>
                     <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Pro Key Matrix</h3>
                     <div class="sidebar-list">
                         <div class="sidebar-item">
-                            <div>Compilation Barrier</div>
-                            <div style="font-family: monospace; color: var(--astro-blue);">___</div>
+                            <div>Core Block</div>
+                            <div style="font-family: monospace; color: var(--astro-blue);">&lt;gs-1.5p&gt;</div>
                         </div>
                         <div class="sidebar-item">
-                            <div>Conditional Block</div>
-                            <div style="font-family: monospace; color: var(--astro-blue);">&lt;if&gt;</div>
+                            <div>State Inserter</div>
+                            <div style="font-family: monospace; color: var(--astro-blue);">embed[]</div>
                         </div>
                         <div class="sidebar-item">
-                            <div>Target Stream</div>
-                            <div style="font-family: monospace; color: var(--astro-blue);">Initialize::</div>
+                            <div>UI Element</div>
+                            <div style="font-family: monospace; color: var(--astro-blue);">&lt;button&gt;</div>
                         </div>
                     </div>
                 </div>
